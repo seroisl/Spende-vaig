@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spende Sanierung - Moschee Salmsach</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="VAIG_V2.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Apple-inspirierte minimalistische Farbpalette
+                        appleBg: '#f5f5f7',
+                        appleText: '#1d1d1f',
+                        appleGray: '#86868b',
+                        appleCard: '#ffffff',
+                        appleBlue: '#0071e3',
+                        moscheeGold: '#a48c6f' // Akzentfarbe des Vereins
+                    },
+                    boxShadow: {
+                        'apple': '0 4px 24px rgba(0, 0, 0, 0.04)',
+                        'apple-hover': '0 8px 32px rgba(0, 0, 0, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { -webkit-font-smoothing: antialiased; }
+        
+        /* Verstecke Scrollbar für sauberen Look */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Input Styling Apple Style */
+        .apple-input {
+            background-color: #f5f5f7;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .apple-input:focus {
+            background-color: #ffffff;
+            border-color: #0071e3;
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-appleBg text-appleText font-sans min-h-screen selection:bg-moscheeGold selection:text-white">
+
+    <header class="w-full pt-12 pb-6 px-4 flex justify-center fade-in-up">
+        <img src="VAIG_V2.png" alt="VAIG Salmsach Logo" class="h-28 md:h-36 object-contain drop-shadow-sm">
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 pb-24">
+        
+        <section class="text-center mb-12 fade-in-up delay-100">
+            <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-appleText">
+                Die neue Moschee Salmsach.
+            </h1>
+            <p class="text-lg md:text-xl text-appleGray mb-8 max-w-2xl mx-auto">
+                Unterstützen Sie die Sanierung unseres Gemeindezentrums. Ein Ort für Glauben, Begegnung und Zukunft.
+            </p>
+            
+            <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white">
+                <img src="GENDO_MOSCHEE_SALMSACH_ACB0.png" alt="Visualisierung der sanierten Moschee" class="w-full h-auto object-cover aspect-video">
+                <div class="absolute inset-0 border border-black/5 rounded-[2rem] pointer-events-none"></div>
+            </div>
+        </section>
+
+        <section class="bg-appleCard rounded-[2rem] p-6 md:p-10 shadow-apple mb-8 fade-in-up delay-200">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-semibold tracking-tight mb-2">Ihre Spende zuordnen</h2>
+                <p class="text-sm text-appleGray">Bitte hinterlassen Sie Ihre Daten, damit wir Ihre Spende korrekt verbuchen und Ihnen auf Wunsch eine Bestätigung ausstellen können.</p>
+            </div>
+
+            <!-- Formulardaten werden an die angegebene Email gesendet -->
+            <form action="https://formsubmit.co/info@moscheesalmsach.ch" method="POST" class="space-y-4" onsubmit="showPaymentOptions(event)">
+                <input type="hidden" name="_subject" value="Neue Spende Sanierung Moschee">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="sr-only" for="vorname">Vorname</label>
+                        <input type="text" id="vorname" name="Vorname" placeholder="Vorname" required class="apple-input w-full rounded-xl px-4 py-4 text-[17px]">
+                    </div>
+                    <div>
+                        <label class="sr-only" for="nachname">Nachname</label>
+                        <input type="text" id="nachname" name="Nachname" placeholder="Nachname" required class="apple-input w-full rounded-xl px-4 py-4 text-[17px]">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="sr-only" for="email">E-Mail</label>
+                    <input type="email" id="email" name="Email" placeholder="E-Mail Adresse" required class="apple-input w-full rounded-xl px-4 py-4 text-[17px]">
+                </div>
+
+                <div>
+                    <label class="sr-only" for="betrag">Geplanter Spendenbetrag (Optional)</label>
+                    <input type="text" id="betrag" name="Betrag_CHF" placeholder="Geplanter Betrag in CHF (Optional)" class="apple-input w-full rounded-xl px-4 py-4 text-[17px]">
+                </div>
+
+                <div class="flex items-start pt-2">
+                    <input type="checkbox" id="datenschutz" name="Datenschutz_akzeptiert" required class="mt-1 w-4 h-4 text-appleBlue border-gray-300 rounded focus:ring-appleBlue">
+                    <label for="datenschutz" class="ml-3 text-sm text-appleGray leading-tight">
+                        Ich bin einverstanden, dass meine Daten für die Zuordnung der Spende verarbeitet werden. Die Daten werden vertraulich behandelt.
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-appleText text-white font-semibold rounded-full px-6 py-4 mt-4 hover:bg-black transition-colors duration-200 text-[17px]">
+                    Weiter zur Zahlung
+                </button>
+            </form>
+        </section>
+
+        <section id="payment-section" class="hidden fade-in-up delay-100">
+            <div class="text-center mb-8 mt-12">
+                <h2 class="text-2xl font-semibold tracking-tight mb-2">Zahlungsmöglichkeiten</h2>
+                <p class="text-sm text-appleGray">Wählen Sie Ihre bevorzugte Methode. <br>Bitte geben Sie als Zahlungszweck <strong>"Sanierung [Ihr Vorname] [Ihr Nachname]"</strong> an.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- TWINT Karte -->
+                <div class="bg-appleCard rounded-[2rem] p-8 shadow-apple text-center flex flex-col items-center border border-transparent hover:border-gray-100 transition-all">
+                    <h3 class="font-semibold text-xl mb-6 flex items-center gap-2">
+                        <!-- TWINT Logo SVG -->
+                        <svg viewBox="0 0 100 30" class="h-6" fill="currentColor">
+                            <path d="M12.5,23.5 L9.5,23.5 L9.5,9.5 L3.5,9.5 L3.5,6.5 L18.5,6.5 L18.5,9.5 L12.5,9.5 L12.5,23.5 Z M33.5,23.5 L29.5,23.5 L25.5,10.5 L21.5,23.5 L17.5,23.5 L13.5,6.5 L17.5,6.5 L20.5,18.5 L24.5,6.5 L27.5,6.5 L31.5,18.5 L34.5,6.5 L38.5,6.5 L33.5,23.5 Z M42.5,23.5 L39.5,23.5 L39.5,6.5 L42.5,6.5 L42.5,23.5 Z M57.5,23.5 L53.5,12.5 L53.5,23.5 L50.5,23.5 L50.5,6.5 L54.5,6.5 L58.5,17.5 L58.5,6.5 L61.5,6.5 L61.5,23.5 L57.5,23.5 Z M76.5,9.5 L70.5,9.5 L70.5,23.5 L67.5,23.5 L67.5,9.5 L61.5,9.5 L61.5,6.5 L76.5,6.5 L76.5,9.5 Z" fill="#000000"/>
+                        </svg>
+                    </h3>
+                    
+                    <div class="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 mb-6">
+                        <!-- HINWEIS: Hier den echten TWINT QR-Code einfügen -->
+                        <img src="https://placehold.co/200x200/ffffff/000000?text=TWINT+QR+CODE" alt="TWINT QR Code" class="w-48 h-48 object-cover rounded-xl">
+                    </div>
+                    
+                    <p class="text-sm text-appleGray">Scannen Sie den QR-Code mit Ihrer TWINT App.</p>
+                </div>
+
+                <!-- Banküberweisung Karte -->
+                <div class="bg-appleCard rounded-[2rem] p-8 shadow-apple flex flex-col justify-between border border-transparent hover:border-gray-100 transition-all">
+                    <div>
+                        <h3 class="font-semibold text-xl mb-6">Banküberweisung</h3>
+                        
+                        <div class="space-y-4 text-sm">
+                            <div>
+                                <p class="text-appleGray text-xs uppercase tracking-wider font-semibold mb-1">Empfänger</p>
+                                <p class="font-medium text-[15px]">VAIG Salmsach</p>
+                            </div>
+                            <div>
+                                <p class="text-appleGray text-xs uppercase tracking-wider font-semibold mb-1">Bank</p>
+                                <p class="font-medium text-[15px]">Ihre Bank Name (z.B. Thurgauer Kantonalbank)</p>
+                            </div>
+                            <div>
+                                <p class="text-appleGray text-xs uppercase tracking-wider font-semibold mb-1">IBAN</p>
+                                <div class="flex items-center justify-between bg-appleBg p-3 rounded-xl mt-1">
+                                    <code id="iban-text" class="font-mono text-appleText text-[15px]">CH99 0000 0000 0000 0000 0</code>
+                                    <button type="button" onclick="copyIban()" class="text-appleBlue hover:text-blue-800 p-2 rounded-lg hover:bg-blue-50 transition-colors" title="IBAN kopieren">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    </button>
+                                </div>
+                                <p id="copy-feedback" class="text-xs text-green-600 mt-2 hidden transition-opacity">IBAN in die Zwischenablage kopiert!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-12 mt-12 fade-in-up delay-300">
+        <div class="max-w-3xl mx-auto px-4 text-sm text-appleGray">
+            <div class="mb-8">
+                <h4 class="font-semibold text-appleText text-base mb-4">Impressum</h4>
+                <p class="mb-2"><strong>Herausgeber & Verantwortlich für den Inhalt:</strong></p>
+                <p class="mb-4">
+                    Verein der Albanisch-Islamischen Gemeinschaft (VAIG)<br>
+                    Schulstrasse 19<br>
+                    8599 Salmsach<br>
+                    Schweiz
+                </p>
+                
+                <p class="mb-2"><strong>Kontakt:</strong></p>
+                <p class="mb-4">
+                    E-Mail: <a href="mailto:info@moscheesalmsach.ch" class="hover:text-appleText underline decoration-gray-300 underline-offset-2">info@moscheesalmsach.ch</a><br>
+                    Webseite: <a href="https://www.moscheesalmsach.ch" class="hover:text-appleText underline decoration-gray-300 underline-offset-2">www.moscheesalmsach.ch</a>
+                </p>
+
+                <p class="mb-2"><strong>Vereinszweck:</strong></p>
+                <p class="mb-6 leading-relaxed">
+                    Der Verein der Albanisch-Islamischen Gemeinschaft (VAIG) setzt sich für die Förderung des kulturellen und religiösen Lebens der muslimischen Gemeinschaft in der Region ein. Die gesammelten Spenden auf dieser Seite dienen ausschliesslich dem festgelegten Zweck der Moschee-Sanierung.
+                </p>
+                
+                <h4 class="font-semibold text-appleText text-base mb-2">Datenschutzhinweis</h4>
+                <p class="leading-relaxed">
+                    Die im Formular erhobenen Daten (Name, E-Mail) werden ausschliesslich zur Zuordnung Ihrer Spende und für allfällige Spendenquittungen verwendet. Eine Weitergabe an Dritte erfolgt nicht. Nach Abschluss der gesetzlichen Aufbewahrungsfristen für Buchhaltungsunterlagen werden Ihre Daten gelöscht.
+                </p>
+            </div>
+            
+            <div class="border-t border-gray-100 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2026 VAIG Salmsach. Alle Rechte vorbehalten.</p>
+                <div class="flex items-center gap-1 mt-2 md:mt-0">
+                    <span>Möge Ihre Spende angenommen werden.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Funktion zum Kopieren der IBAN
+        function copyIban() {
+            const ibanText = document.getElementById('iban-text').innerText;
+            
+            // Moderne Clipboard API
+            navigator.clipboard.writeText(ibanText).then(() => {
+                showFeedback();
+            }).catch(err => {
+                // Fallback für ältere Browser oder iFrames
+                const textArea = document.createElement("textarea");
+                textArea.value = ibanText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showFeedback();
+                } catch (err) {
+                    console.error('Kopieren fehlgeschlagen', err);
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+
+        function showFeedback() {
+            const feedback = document.getElementById('copy-feedback');
+            feedback.classList.remove('hidden');
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Funktion um Zahlungsoptionen nach Klick auf "Weiter" zu zeigen
+        function showPaymentOptions(event) {
+            // Verhindert das normale Absenden (Neuladen der Seite) WENN man nur UI ändern will.
+            // Da wir formsubmit nutzen, lassen wir das Formular normal absenden.
+            // ABER: formsubmit leitet auf eine andere Seite um (Danke-Seite).
+            // Bessere UX für Spenden: Wir zeigen die Zahldaten direkt an und senden das Formular unsichtbar ab.
+            
+            event.preventDefault(); // Standard-Umleitung stoppen
+            
+            const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            
+            submitBtn.innerText = "Wird verarbeitet...";
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50');
+
+            // Formulardaten per Fetch API im Hintergrund senden
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                // Bei Erfolg Zahlungssektion einblenden
+                document.getElementById('payment-section').classList.remove('hidden');
+                
+                // Formular anpassen (Feedback geben)
+                submitBtn.innerText = "Daten erfasst! Bitte unten zahlen.";
+                submitBtn.classList.remove('bg-appleText', 'hover:bg-black');
+                submitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                
+                // Sanft zur Zahlungssektion scrollen
+                setTimeout(() => {
+                    document.getElementById('payment-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+
+            }).catch(error => {
+                console.error('Fehler beim Senden:', error);
+                submitBtn.innerText = "Fehler. Bitte erneut versuchen.";
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50');
+            });
+        }
+    </script>
+</body>
+</html>
