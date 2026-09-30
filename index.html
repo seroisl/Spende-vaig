@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spende Sanierung - Moschee Salmsach</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="VAIG_V2.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        appleBg: '#f5f5f7',
+                        appleText: '#1d1d1f',
+                        appleGray: '#86868b',
+                        appleCard: '#ffffff',
+                        appleBlue: '#0071e3',
+                        moscheeGold: '#a48c6f' 
+                    },
+                    boxShadow: {
+                        'apple': '0 4px 24px rgba(0, 0, 0, 0.04)',
+                        'apple-hover': '0 8px 32px rgba(0, 0, 0, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .apple-input {
+            background-color: #f5f5f7;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .apple-input:focus {
+            background-color: #ffffff;
+            border-color: #0071e3;
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-appleBg text-appleText font-sans min-h-screen selection:bg-moscheeGold selection:text-white flex flex-col">
+
+    <!-- Header (Bleibt auf allen Seiten gleich) -->
+    <header class="w-full pt-12 pb-6 px-4 flex justify-center fade-in-up flex-shrink-0">
+        <a href="#" onclick="window.location.hash=''; return false;" class="block cursor-pointer transition-transform hover:scale-105 duration-300">
+            <img src="VAIG_V2.png" alt="VAIG Salmsach Logo" class="h-24 md:h-32 object-contain drop-shadow-sm">
+        </a>
+    </header>
+
+    <main class="w-full flex-grow">
+        
+        <!-- ========================================== -->
+        <!-- ANSICHT 1: DAS NORMALE SPENDENFORMULAR -->
+        <!-- ========================================== -->
+        <div id="view-main" class="max-w-4xl mx-auto px-4 pb-24 block">
+            
+            <!-- Titel & Intro -->
+            <section class="text-center mb-12 fade-in-up delay-100">
+                <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-appleText">
+                    Die neue Moschee Salmsach.
+                </h1>
+                <p class="text-lg md:text-xl text-appleGray mb-10 max-w-2xl mx-auto">
+                    Unterstützen Sie die Sanierung unseres Gemeindezentrums. Ein Ort für Glauben, Begegnung und Zukunft.
+                </p>
+                
+                <!-- Neue Aussenansichten (Ersetzt das alte Einzelbild) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white group">
+                        <img src="Aussen 1.png" alt="Aussenansicht 1" class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 border border-black/5 rounded-[2rem] pointer-events-none"></div>
+                    </div>
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white group">
+                        <img src="Aussen 2.png" alt="Aussenansicht 2" class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 border border-black/5 rounded-[2rem] pointer-events-none"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- RAISE NOW MOCKUP (HTML Nachbau)            -->
+            <!-- ========================================== -->
+            <section class="bg-white rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 shadow-apple hover:shadow-apple-hover transition-shadow duration-300 mb-16 fade-in-up delay-200 border border-gray-100/50 max-w-3xl mx-auto">
+                <div class="text-center mb-10 pb-6 border-b border-gray-100">
+                    <h2 class="text-2xl font-semibold tracking-tight mb-2">Ihre Spende</h2>
+                    <p class="text-sm text-appleGray">Provisorische Ansicht des künftigen Spenden-Widgets</p>
+                </div>
+
+                <form action="https://formsubmit.co/info@moscheesalmsach.ch" method="POST" class="space-y-10" onsubmit="showPaymentOptions(event)">
+                    <input type="hidden" name="_subject" value="Neue Spende Sanierung Moschee">
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <!-- Schritt 1: Betrag wählen -->
+                    <div>
+                        <h3 class="flex items-center text-lg font-semibold text-gray-800 mb-5">
+                            <span class="bg-moscheeGold text-white rounded-full w-7 h-7 inline-flex items-center justify-center text-sm mr-3 shadow-sm">1</span> 
+                            Betrag wählen
+                        </h3>
+                        <div class="grid grid-cols-2 gap-3 md:gap-4">
+                            <label class="border border-gray-200 rounded-2xl p-4 md:p-5 flex items-center cursor-pointer hover:border-moscheeGold transition-colors bg-gray-50/50">
+                                <input type="radio" name="Betrag" value="100" class="mr-3 accent-moscheeGold w-4 h-4"> 
+                                <span class="text-gray-400 text-sm md:text-base mr-2">CHF</span> 
+                                <span class="font-bold text-xl md:text-2xl text-gray-700">100</span>
+                            </label>
+                            
+                            <!-- Ausgewählter Betrag -->
+                            <label class="border-2 border-moscheeGold bg-moscheeGold/5 rounded-2xl p-4 md:p-5 flex items-center cursor-pointer transition-colors shadow-sm">
+                                <input type="radio" name="Betrag" value="500" checked class="mr-3 accent-moscheeGold w-4 h-4"> 
+                                <span class="text-moscheeGold/70 text-sm md:text-base mr-2">CHF</span> 
+                                <span class="font-bold text-xl md:text-2xl text-moscheeGold">500</span>
+                            </label>
+                            
+                            <label class="border border-gray-200 rounded-2xl p-4 md:p-5 flex items-center cursor-pointer hover:border-moscheeGold transition-colors bg-gray-50/50">
+                                <input type="radio" name="Betrag" value="1000" class="mr-3 accent-moscheeGold w-4 h-4"> 
+                                <span class="text-gray-400 text-sm md:text-base mr-2">CHF</span> 
+                                <span class="font-bold text-xl md:text-2xl text-gray-700">1000</span>
+                            </label>
+                            
+                            <label class="border border-gray-200 rounded-2xl p-4 md:p-5 flex items-center cursor-pointer hover:border-moscheeGold transition-colors bg-gray-50/50">
+                                <input type="radio" name="Betrag" value="Individuell" class="mr-3 accent-moscheeGold w-4 h-4"> 
+                                <span class="text-gray-500 text-sm md:text-base font-medium">Freier Betrag</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Schritt 2: Zahlungsmittel -->
+                    <div>
+                        <h3 class="flex items-center text-lg font-semibold text-gray-800 mb-5">
+                            <span class="bg-moscheeGold text-white rounded-full w-7 h-7 inline-flex items-center justify-center text-sm mr-3 shadow-sm">2</span> 
+                            Zahlungsmittel
+                        </h3>
+                        <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white">
+                            <div class="p-4 border-b border-gray-100 flex items-center gap-3 bg-gray-50/30">
+                                <div class="w-4 h-4 rounded-full border-4 border-moscheeGold bg-white"></div>
+                                <span class="font-semibold text-gray-800">TWINT</span>
+                            </div>
+                            <div class="p-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-white">
+                                <p class="text-sm text-gray-500 max-w-xs leading-relaxed">TWINT-Zahlungen erfordern eine installierte Smartphone-App (iOS oder Android)</p>
+                                <div class="bg-black text-white px-6 py-2 rounded-xl flex items-center gap-2">
+                                    <!-- Kleines TWINT Logo aus SVGs simuliert -->
+                                    <svg viewBox="0 0 100 30" class="h-6 text-white" fill="currentColor"><path d="M12.5,23.5 L9.5,23.5 L9.5,9.5 L3.5,9.5 L3.5,6.5 L18.5,6.5 L18.5,9.5 L12.5,9.5 L12.5,23.5 Z M33.5,23.5 L29.5,23.5 L25.5,10.5 L21.5,23.5 L17.5,23.5 L13.5,6.5 L17.5,6.5 L20.5,18.5 L24.5,6.5 L27.5,6.5 L31.5,18.5 L34.5,6.5 L38.5,6.5 L33.5,23.5 Z M42.5,23.5 L39.5,23.5 L39.5,6.5 L42.5,6.5 L42.5,23.5 Z M57.5,23.5 L53.5,12.5 L53.5,23.5 L50.5,23.5 L50.5,6.5 L54.5,6.5 L58.5,17.5 L58.5,6.5 L61.5,6.5 L61.5,23.5 L57.5,23.5 Z M76.5,9.5 L70.5,9.5 L70.5,23.5 L67.5,23.5 L67.5,9.5 L61.5,9.5 L61.5,6.5 L76.5,6.5 L76.5,9.5 Z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Schritt 3: Personalien -->
+                    <div>
+                        <h3 class="flex items-center text-lg font-semibold text-gray-800 mb-5">
+                            <span class="bg-moscheeGold text-white rounded-full w-7 h-7 inline-flex items-center justify-center text-sm mr-3 shadow-sm">3</span> 
+                            Personalien angeben
+                        </h3>
+                        <div class="space-y-4">
+                            <select class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-4 focus:outline-none focus:border-moscheeGold focus:ring-1 focus:ring-moscheeGold transition-colors text-gray-600 appearance-none">
+                                <option>Anrede (optional)</option>
+                                <option>Frau</option>
+                                <option>Herr</option>
+                            </select>
+                            
+                            <input type="text" name="Vorname" placeholder="Vorname" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-4 focus:outline-none focus:border-moscheeGold focus:ring-1 focus:ring-moscheeGold transition-colors">
+                            
+                            <input type="text" name="Nachname" placeholder="Nachname" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-4 focus:outline-none focus:border-moscheeGold focus:ring-1 focus:ring-moscheeGold transition-colors">
+                            
+                            <input type="email" name="Email" placeholder="E-Mail" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-4 focus:outline-none focus:border-moscheeGold focus:ring-1 focus:ring-moscheeGold transition-colors">
+                        </div>
+                    </div>
+
+                    <!-- Schritt 4: Gebühren -->
+                    <div>
+                        <h3 class="flex items-center text-lg font-semibold text-gray-800 mb-4">
+                            <span class="bg-moscheeGold text-white rounded-full w-7 h-7 inline-flex items-center justify-center text-sm mr-3 shadow-sm">4</span> 
+                            Gebührenübernahme
+                        </h3>
+                        <div class="border border-gray-200 rounded-xl p-4 flex items-center bg-gray-50/50">
+                            <input type="checkbox" id="fees" class="w-5 h-5 accent-moscheeGold text-moscheeGold bg-white border-gray-300 rounded focus:ring-moscheeGold mr-4">
+                            <label for="fees" class="text-sm text-gray-600">Ja, ich übernehme die Transaktionsgebühren.</label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-4 text-center">
+                        <button type="submit" class="w-full bg-black text-white font-bold rounded-xl px-6 py-5 hover:bg-gray-800 transition-colors duration-200 text-lg shadow-md">
+                            500 CHF spenden
+                        </button>
+                        <div class="mt-6 flex flex-col items-center justify-center text-xs text-gray-400 gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            <span>Sicher spenden mit RaiseNow Mockup</span>
+                            <a href="#" class="underline hover:text-gray-600">Datenschutzbestimmungen</a>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Zahlungsbereich (Wird nach Klick auf "Spenden" eingeblendet, für Banküberweisung) -->
+            <section id="payment-section" class="hidden fade-in-up delay-100 max-w-3xl mx-auto mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-semibold tracking-tight mb-2">Manuelle Zahlung erforderlich</h2>
+                    <p class="text-sm text-appleGray">Da dies eine Vorschau ist, schliessen Sie die Zahlung bitte via Banküberweisung ab.</p>
+                </div>
+
+                <div class="bg-appleCard rounded-[2rem] p-8 md:p-10 shadow-apple border border-gray-100 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-moscheeGold"></div>
+                    <h3 class="font-bold text-2xl mb-8 text-center text-gray-800">Banküberweisung / E-Banking</h3>
+                    
+                    <div class="flex flex-col md:flex-row gap-10 items-center md:items-start justify-center">
+                        <!-- QR Rechnung Bild -->
+                        <div class="bg-gray-50 p-4 rounded-2xl shadow-sm border border-gray-200 flex-shrink-0">
+                            <img src="image.png" alt="Schweizer QR-Rechnung" class="w-40 h-40 object-cover rounded-lg mix-blend-multiply">
+                            <p class="text-[10px] text-center text-gray-400 mt-2 font-medium uppercase tracking-wider">In App scannen</p>
+                        </div>
+                        
+                        <!-- Bankdaten -->
+                        <div class="space-y-5 text-sm text-left w-full md:w-auto">
+                            <div>
+                                <p class="text-appleGray text-xs uppercase tracking-wider font-bold mb-1">Empfänger</p>
+                                <p class="font-semibold text-gray-800 text-base">VAIG Verein der Albanisch Islamischen Gemeinschaft</p>
+                                <p class="text-[15px] text-gray-500 mt-0.5">Schulstrasse 19, 8599 Salmsach</p>
+                            </div>
+                            <div>
+                                <p class="text-appleGray text-xs uppercase tracking-wider font-bold mb-1">Bank</p>
+                                <p class="font-semibold text-gray-800 text-[15px]">Thurgauer Kantonalbank</p>
+                            </div>
+                            <div>
+                                <p class="text-appleGray text-xs uppercase tracking-wider font-bold mb-1">IBAN</p>
+                                <div class="flex items-center justify-between bg-appleBg p-3 md:p-4 rounded-xl mt-1 border border-gray-100 shadow-sm">
+                                    <code id="iban-text" class="font-mono text-appleBlue text-[15px] md:text-lg font-bold tracking-wide">CH42 0078 4172 0463 5751 0</code>
+                                    <button type="button" onclick="copyIban()" class="text-appleText hover:text-black p-2 rounded-lg hover:bg-gray-200 transition-colors flex-shrink-0 ml-4" title="IBAN kopieren">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    </button>
+                                </div>
+                                <p id="copy-feedback" class="text-sm text-[#34c759] mt-2 hidden transition-opacity font-medium flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    IBAN kopiert!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- GALERIE: NEUER EINGANGSBEREICH             -->
+            <!-- ========================================== -->
+            <section class="mt-20 fade-in-up delay-300">
+                <div class="text-center mb-10 border-b border-gray-200 pb-4">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">Neuer Eingangsbereich</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white group">
+                        <img src="Neu Eingang_1.png" alt="Eingangsbereich Ansicht 1" class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white group">
+                        <img src="Neu Eingang_2.png" alt="Eingangsbereich Ansicht 2" class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- GALERIE: GEBETSRAUM MÄNNER                 -->
+            <!-- ========================================== -->
+            <section class="mt-20 fade-in-up delay-300">
+                <div class="text-center mb-10 border-b border-gray-200 pb-4">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">Gebetsraum Männer</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white group">
+                        <img src="Männer_2.png" alt="Gebetsraum Männer Ansicht 1" class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white group">
+                        <img src="Männer_3.png" alt="Gebetsraum Männer Ansicht 2" class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white group">
+                        <img src="Männer_4.png" alt="Gebetsraum Männer Ansicht 3" class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white group">
+                        <img src="Männer_5.png" alt="Gebetsraum Männer Ansicht 4" class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- GALERIE: GEBETSRAUM FRAUEN                 -->
+            <!-- ========================================== -->
+            <section class="mt-20 fade-in-up delay-300">
+                <div class="text-center mb-10 border-b border-gray-200 pb-4">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">Gebetsraum Frauen</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white group">
+                        <img src="Frauenseite 1.png" alt="Gebetsraum Frauen Ansicht 1" class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-apple bg-white group">
+                        <img src="Frauenseite 2.png" alt="Gebetsraum Frauen Ansicht 2" class="w-full h-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ========================================== -->
+        <!-- ANSICHT 2: ERFOLG (#erfolg) -->
+        <!-- ========================================== -->
+        <div id="view-erfolg" class="hidden max-w-2xl mx-auto px-4 pb-24 fade-in-up">
+            <section class="bg-appleCard rounded-[2rem] p-10 md:p-16 shadow-apple text-center border border-gray-100">
+                <div class="inline-flex items-center justify-center w-24 h-24 bg-green-50 text-[#34c759] rounded-full mb-8 shadow-sm ring-8 ring-green-50/50">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                
+                <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-appleText">
+                    Zahlung erfolgreich
+                </h1>
+                
+                <p class="text-lg text-appleGray mb-10 leading-relaxed">
+                    Ihre Spende wurde erfolgreich übermittelt. Wir bedanken uns von Herzen für Ihre wertvolle Unterstützung zur Sanierung der Moschee Salmsach.
+                </p>
+
+                <div class="bg-appleBg rounded-2xl p-6 mb-10">
+                    <p class="text-moscheeGold font-medium text-lg italic">
+                        "Möge Allah (swt) Ihre Spende annehmen, Sie dafür reichlich belohnen und Ihnen und Ihrer Familie Segen schenken."
+                    </p>
+                </div>
+                
+                <a href="#" onclick="window.location.hash=''; return false;" class="inline-block w-full sm:w-auto bg-appleText text-white font-semibold rounded-full px-10 py-4 hover:bg-black transition-colors duration-200 text-[17px]">
+                    Zurück zur Startseite
+                </a>
+            </section>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- ANSICHT 3: FEHLER (#fehler) -->
+        <!-- ========================================== -->
+        <div id="view-fehler" class="hidden max-w-2xl mx-auto px-4 pb-24 fade-in-up">
+            <section class="bg-appleCard rounded-[2rem] p-10 md:p-16 shadow-apple text-center border border-gray-100">
+                <div class="inline-flex items-center justify-center w-24 h-24 bg-red-50 text-[#ff3b30] rounded-full mb-8 shadow-sm ring-8 ring-red-50/50">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+                
+                <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-appleText">
+                    Zahlung nicht vollendet
+                </h1>
+                
+                <p class="text-lg text-appleGray mb-10 leading-relaxed">
+                    Leider konnte Ihre Zahlung nicht erfolgreich abgeschlossen werden. Bitte überprüfen Sie Ihre Angaben oder wählen Sie eine andere Zahlungsmethode.
+                </p>
+                
+                <a href="#" onclick="window.location.hash=''; return false;" class="inline-block w-full sm:w-auto bg-appleText text-white font-semibold rounded-full px-10 py-4 hover:bg-black transition-colors duration-200 text-[17px]">
+                    Erneut versuchen
+                </a>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Impressum & Footer (Bleibt auf allen Seiten sichtbar) -->
+    <footer class="bg-white border-t border-gray-200 py-12 mt-auto">
+        <div class="max-w-3xl mx-auto px-4 text-sm text-appleGray">
+            <div class="mb-8">
+                <h4 class="font-semibold text-appleText text-base mb-4">Impressum</h4>
+                <p class="mb-2"><strong>Herausgeber & Verantwortlich für den Inhalt:</strong></p>
+                <p class="mb-4">
+                    VAIG Verein der Albanisch Islamischen Gemeinschaft<br>
+                    Schulstrasse 19<br>
+                    8599 Salmsach<br>
+                    Schweiz
+                </p>
+                
+                <p class="mb-2"><strong>Kontakt:</strong></p>
+                <p class="mb-4">
+                    E-Mail: <a href="mailto:info@moscheesalmsach.ch" class="hover:text-appleText underline decoration-gray-300 underline-offset-2">info@moscheesalmsach.ch</a><br>
+                    Webseite: <a href="https://www.moscheesalmsach.ch" class="hover:text-appleText underline decoration-gray-300 underline-offset-2">www.moscheesalmsach.ch</a>
+                </p>
+
+                <p class="mb-2"><strong>Vereinszweck:</strong></p>
+                <p class="mb-6 leading-relaxed">
+                    Der Verein der Albanisch-Islamischen Gemeinschaft (VAIG) setzt sich für die Förderung des kulturellen und religiösen Lebens der muslimischen Gemeinschaft in der Region ein. Die gesammelten Spenden auf dieser Seite dienen dem festgelegten Zweck der Moschee-Sanierung.
+                </p>
+                
+                <h4 class="font-semibold text-appleText text-base mb-2">Datenschutzhinweis</h4>
+                <p class="leading-relaxed">
+                    Die im Formular erhobenen Daten (Name, E-Mail) werden ausschliesslich zur Zuordnung Ihrer Spende und für allfällige Spendenquittungen verwendet. Eine Weitergabe an Dritte erfolgt nicht. Nach Abschluss der gesetzlichen Aufbewahrungsfristen für Buchhaltungsunterlagen werden Ihre Daten gelöscht.
+                </p>
+            </div>
+            
+            <div class="border-t border-gray-100 pt-6 flex flex-col md:flex-row justify-between items-center text-xs md:text-sm">
+                <p>&copy; 2026 VAIG Salmsach. Alle Rechte vorbehalten.</p>
+                <div class="flex items-center gap-1 mt-2 md:mt-0">
+                    <span>Möge Ihre Spende angenommen werden.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Router Logik für #erfolg und #fehler ---
+        function handleRouting() {
+            const hash = window.location.hash;
+            const viewMain = document.getElementById('view-main');
+            const viewErfolg = document.getElementById('view-erfolg');
+            const viewFehler = document.getElementById('view-fehler');
+
+            // Zuerst alle verstecken
+            viewMain.classList.add('hidden');
+            viewMain.classList.remove('block');
+            
+            viewErfolg.classList.add('hidden');
+            viewErfolg.classList.remove('block');
+            
+            viewFehler.classList.add('hidden');
+            viewFehler.classList.remove('block');
+
+            // Je nach Hash die richtige Ansicht zeigen
+            if (hash === '#erfolg') {
+                viewErfolg.classList.remove('hidden');
+                viewErfolg.classList.add('block');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (hash === '#fehler') {
+                viewFehler.classList.remove('hidden');
+                viewFehler.classList.add('block');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // Wenn kein Hash da ist, zeige die normale Startseite
+                viewMain.classList.remove('hidden');
+                viewMain.classList.add('block');
+            }
+        }
+
+        // Hört auf Hash-Änderungen (wenn die URL im Browser geändert wird)
+        window.addEventListener('hashchange', handleRouting);
+        // Prüft den Hash beim ersten Laden der Seite
+        window.addEventListener('DOMContentLoaded', handleRouting);
+
+
+        // --- Kopier-Funktion ---
+        function copyIban() {
+            const ibanText = document.getElementById('iban-text').innerText;
+            navigator.clipboard.writeText(ibanText).then(() => {
+                showFeedback();
+            }).catch(err => {
+                const textArea = document.createElement("textarea");
+                textArea.value = ibanText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showFeedback();
+                } catch (err) {
+                    console.error('Kopieren fehlgeschlagen', err);
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+
+        function showFeedback() {
+            const feedback = document.getElementById('copy-feedback');
+            feedback.classList.remove('hidden');
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 3000);
+        }
+
+        // --- Formular-Funktion ---
+        function showPaymentOptions(event) {
+            event.preventDefault(); 
+            
+            const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            submitBtn.innerText = "Wird verarbeitet...";
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50');
+
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                document.getElementById('payment-section').classList.remove('hidden');
+                
+                submitBtn.innerText = "Daten erfasst! Bitte unten zahlen.";
+                submitBtn.classList.remove('bg-appleText', 'hover:bg-black', 'opacity-50');
+                submitBtn.classList.add('bg-[#34c759]', 'hover:bg-[#34c759]');
+                
+                setTimeout(() => {
+                    document.getElementById('payment-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+
+            }).catch(error => {
+                console.error('Fehler beim Senden:', error);
+                submitBtn.innerText = "Fehler. Bitte erneut versuchen.";
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50');
+            });
+        }
+    </script>
+</body>
+</html>
